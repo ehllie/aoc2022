@@ -1,0 +1,160 @@
+cabal-version: 3.0
+name:          aoc2022
+version:       0.1.0.0
+synopsis:
+  My solutions for the Advent of Code 2022 problems in Haskell
+
+license:       MPL-2.0
+license-file:  LICENSE
+author:        Elizabeth Paź
+maintainer:    me@ehllie.xyz
+category:      Development
+build-type:    Simple
+
+common base
+  ghc-options:        -Wall
+  default-language:   GHC2021
+  build-depends:      base ^>=4.16.3.0
+  default-extensions:
+    BlockArguments
+    OverloadedStrings
+
+common exec
+  import:        base
+  build-depends: aoc2022
+
+library
+  import:          base
+  build-depends:
+    , directory         ^>=1.3
+    , filepath          ^>=1.4
+    , template-haskell  ^>=2.18
+
+  hs-source-dirs:  lib
+  exposed-modules: Inputs
+  other-modules:   TH
+
+executable aoc01
+  import:         exec
+  hs-source-dirs: aoc01
+  main-is:        Main.hs
+
+executable aoc02
+  import:         exec
+  hs-source-dirs: aoc02
+  main-is:        Main.hs
+
+executable aoc03
+  import:         exec
+  hs-source-dirs: aoc03
+  main-is:        Main.hs
+
+executable aoc04
+  import:         exec
+  hs-source-dirs: aoc04
+  main-is:        Main.hs
+
+executable aoc05
+  import:         exec
+  hs-source-dirs: aoc05
+  main-is:        Main.hs
+
+executable aoc06
+  import:         exec
+  hs-source-dirs: aoc06
+  main-is:        Main.hs
+
+executable aoc07
+  import:         exec
+  hs-source-dirs: aoc07
+  main-is:        Main.hs
+
+executable aoc08
+  import:         exec
+  hs-source-dirs: aoc08
+  main-is:        Main.hs
+
+executable aoc09
+  import:         exec
+  hs-source-dirs: aoc09
+  main-is:        Main.hs
+
+executable aoc10
+  import:         exec
+  hs-source-dirs: aoc10
+  main-is:        Main.hs
+
+executable aoc11
+  import:         exec
+  hs-source-dirs: aoc11
+  main-is:        Main.hs
+
+executable aoc12
+  import:         exec
+  hs-source-dirs: aoc12
+  main-is:        Main.hs
+
+executable aoc13
+  import:         exec
+  hs-source-dirs: aoc13
+  main-is:        Main.hs
+
+executable aoc14
+  import:         exec
+  hs-source-dirs: aoc14
+  main-is:        Main.hs
+
+executable aoc15
+  import:         exec
+  hs-source-dirs: aoc15
+  main-is:        Main.hs
+
+executable aoc16
+  import:         exec
+  hs-source-dirs: aoc16
+  main-is:        Main.hs
+
+executable aoc17
+  import:         exec
+  hs-source-dirs: aoc17
+  main-is:        Main.hs
+
+executable aoc18
+  import:         exec
+  hs-source-dirs: aoc18
+  main-is:        Main.hs
+
+executable aoc19
+  import:         exec
+  hs-source-dirs: aoc19
+  main-is:        Main.hs
+
+executable aoc20
+  import:         exec
+  hs-source-dirs: aoc20
+  main-is:        Main.hs
+
+executable aoc21
+  import:         exec
+  hs-source-dirs: aoc21
+  main-is:        Main.hs
+
+executable aoc22
+  import:         exec
+  hs-source-dirs: aoc22
+  main-is:        Main.hs
+
+executable aoc23
+  import:         exec
+  hs-source-dirs: aoc23
+  main-is:        Main.hs
+
+executable aoc24
+  import:         exec
+  hs-source-dirs: aoc24
+  main-is:        Main.hs
+
+executable aoc25
+  import:         exec
+  hs-source-dirs: aoc25
+  main-is:        Main.hs
