@@ -1,63 +1,54 @@
 module Main where
 
-import Data.Bifunctor (second)
+import Data.Bifunctor (bimap)
 import Inputs (linesFor, logParse)
+import Text.Read (readMaybe)
 
 data Move = Rock | Paper | Scissors
   deriving (Eq, Show, Enum)
 
+data ElfMove = A | B | C
+  deriving (Eq, Show, Enum, Read)
+
 data MyMove = X | Y | Z
-  deriving (Eq, Show, Enum)
+  deriving (Eq, Show, Enum, Read)
 
 instance Ord Move where
   (<=) :: Move -> Move -> Bool
-  Rock <= Paper = True
-  Paper <= Scissors = True
-  Scissors <= Rock = True
-  _ <= _ = False
+  Rock     <= Paper    = True
+  Paper    <= Scissors = True
+  Scissors <= Rock     = True
+  _        <= _        = False
 
-parse :: String -> Maybe (Move, MyMove)
+parse :: String -> Maybe (ElfMove, MyMove)
 parse s = do
-  [elf, me] <- case words s of
-    [elf, me] -> Just [elf, me]
+  (elf, me) <- case words s of
+    [elf, me] -> Just (elf, me)
     _ -> Nothing
-  eMove <- case elf of
-    "A" -> Just Rock
-    "B" -> Just Paper
-    "C" -> Just Scissors
-    _ -> Nothing
-  mMove <- case me of
-    "X" -> Just X
-    "Y" -> Just Y
-    "Z" -> Just Z
-    _ -> Nothing
-  return (eMove, mMove)
-
-interpretOne :: MyMove -> Move
-interpretOne = toEnum . fromEnum
-
-interpretTwo :: Move -> MyMove -> (Move, Move)
-interpretTwo m Y = (m, m)
-interpretTwo m r = (,) m case r of
-  X -> moves !! (fromEnum m + 2)
-  Z -> moves !! (fromEnum m + 1)
- where
-  moves = cycle [Rock, Paper, Scissors]
+  eMove <- readMaybe elf
+  mMove <- readMaybe me
+  Just (eMove, mMove)
 
 roundScore :: (Move, Move) -> Int
 roundScore (eMove, mMove) =
-  1
-    + fromEnum mMove
+  1 + fromEnum mMove
     + case eMove `compare` mMove of
       LT -> 6
       EQ -> 3
       GT -> 0
 
-partOne :: [(Move, MyMove)] -> Int
-partOne = sum . map (roundScore . second interpretOne)
+partOne :: [(ElfMove, MyMove)] -> Int
+partOne = sum . map (roundScore . bimap (toEnum . fromEnum) (toEnum . fromEnum))
 
-partTwo :: [(Move, MyMove)] -> Int
-partTwo = sum . map (roundScore . uncurry interpretTwo)
+partTwo :: [(ElfMove, MyMove)] -> Int
+partTwo = sum . map
+  ( roundScore . uncurry
+    \m -> (toEnum $ fromEnum m,)
+        . toEnum
+        . (`mod` 3)
+        . (+) (2 + fromEnum m)
+        . fromEnum
+  )
 
 main :: IO ()
 main = do
