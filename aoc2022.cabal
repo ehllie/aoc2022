@@ -48,6 +48,9 @@ executable aoc03
   import:         exec
   hs-source-dirs: aoc03
   main-is:        Main.hs
+  build-depends:
+    , containers  ^>=0.6
+    , split       ^>=0.2
 
 executable aoc04
   import:         exec
