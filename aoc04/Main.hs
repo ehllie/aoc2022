@@ -1,6 +1,6 @@
-module Main where
+module Main (main) where
 
-import Data.Bifunctor (bimap)
+import Data.Bitraversable (bitraverse)
 import Data.List (elemIndex)
 import Inputs (linesFor, logParse)
 import Text.Read (readMaybe)
@@ -8,18 +8,12 @@ import Text.Read (readMaybe)
 type ElfAssignments = ((Int, Int), (Int, Int))
 
 parse :: String -> Maybe ElfAssignments
-parse s = do
-  (l, r) <- flip splitAt s <$> elemIndex ',' s
-  let readInts =
-        both
-          . bimap
-            (readMaybe . filter (`elem` ['0' .. '9']))
-            (readMaybe . filter (`elem` ['0' .. '9']))
-      both (Just a, Just b) = Just (a, b)
-      both _ = Nothing
-  lInt <- readInts . flip splitAt l =<< elemIndex '-' l
-  rInt <- readInts . flip splitAt r =<< elemIndex '-' r
-  return (lInt, rInt)
+parse = (bitraverse splitInts splitInts .) . flip splitAt =<* elemIndex ','
+ where
+  splitInts = (bitraverse maybeInt maybeInt .) . flip splitAt =<* elemIndex '-'
+  maybeInt = readMaybe . filter (`elem` ['0' .. '9'])
+  infixr 1 =<*
+  (=<*) f g = (=<<) . f <*> g
 
 partOne :: [ElfAssignments] -> Int
 partOne = length . filter ((||) <$> overlap' <*> overlap)
