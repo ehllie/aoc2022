@@ -12,7 +12,7 @@ category:      Development
 build-type:    Simple
 
 common base
-  ghc-options:        -Wall
+  ghc-options:        -Wall -Wno-type-defaults
   default-language:   GHC2021
   build-depends:      base ^>=4.16.3.0
   default-extensions:
