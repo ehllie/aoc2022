@@ -6,14 +6,12 @@ import Inputs (linesFor)
 parse :: String -> [Int]
 parse = map (subtract (fromEnum '0') . fromEnum)
 
-lowestOuter :: [Int] -> [Int]
-lowestOuter row =
-  let fromLeft = init $ scanl1 max $ -1 : row
-      fromRight = tail $ scanr1 max $ row ++ [-1]
-   in zipWith min fromLeft fromRight
-
 visibleOut :: [Int] -> [Bool]
-visibleOut = zipWith (>) <*> lowestOuter
+visibleOut row =
+  let fromLeft = init $ scanl max (-1) row
+      fromRight = tail $ scanr max (-1) row
+      visible tree fromL fromR = tree > fromL || tree > fromR
+   in zipWith3 visible row fromLeft fromRight
 
 visibleFrom :: [Int] -> [(Int, Int)]
 visibleFrom row =
