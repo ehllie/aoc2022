@@ -81,6 +81,7 @@ executable aoc09
   import:         exec
   hs-source-dirs: aoc09
   main-is:        Main.hs
+  build-depends:  containers ^>=0.6
 
 executable aoc10
   import:         exec
