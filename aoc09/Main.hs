@@ -14,7 +14,7 @@ type Visited = Set Position
 
 parse :: String -> Maybe [Move]
 parse s = case words s of
-  [dir, num] -> flip replicate <$> readMaybe dir <*> readMaybe num
+  [dir, num] -> replicate <$> readMaybe num <*> readMaybe dir
   _ -> Nothing
 
 updatePositions :: (Visited, NonEmpty Position) -> Move -> (Visited, NonEmpty Position)
