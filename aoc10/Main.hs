@@ -1,6 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Main where
+module Main (main) where
 
 import Inputs (linesFor, logParse)
 
@@ -8,9 +8,6 @@ import Data.List.Split (chunksOf)
 import Text.Read (readMaybe)
 
 data OP = Noop | AddX Int
-  deriving (Show)
-
-type Register = Int
 
 parseLine :: String -> Maybe OP
 parseLine s = case words s of
@@ -18,22 +15,31 @@ parseLine s = case words s of
   ["addx", x] -> AddX <$> readMaybe x
   _ -> Nothing
 
-runCpu :: Register -> OP -> [Register]
-runCpu r = \case
-  Noop -> [r]
-  AddX x -> [r, r + x]
+runCpu :: [OP] -> [Int]
+runCpu ops = concat $ scanl (runOp . last) [1] ops
+ where
+  runOp r = \case
+    Noop -> [r]
+    AddX x -> [r, r + x]
 
 partOne :: [OP] -> Int
-partOne ops = sum [r * i | (r, i) <- zip cycles [1 ..], i `elem` [20, 60 .. 220]]
- where
-  cycles = concat $ scanl (runCpu . last) [1] ops
+partOne ops =
+  sum
+    [ reg * i
+    | (reg, i) <- zip (runCpu ops) [1 ..]
+    , i `elem` [20, 60 .. 220]
+    ]
 
 partTwo :: [OP] -> String
-partTwo ops = unlines pixels
- where
-  pixels = [[if abs (r - c) <= 1 then 'X' else ' ' | (r, c) <- zip row [0 ..]] | row <- rows]
-  rows = chunksOf 40 cycles
-  cycles = concat $ scanl (runCpu . last) [1] ops
+partTwo ops =
+  unlines
+    [ [ if abs (reg - col) <= 1
+        then 'X'
+        else ' '
+      | (reg, col) <- zip row [0 ..]
+      ]
+    | row <- chunksOf 40 $ runCpu ops
+    ]
 
 main :: IO ()
 main = do
