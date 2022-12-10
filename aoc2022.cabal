@@ -87,6 +87,7 @@ executable aoc10
   import:         exec
   hs-source-dirs: aoc10
   main-is:        Main.hs
+  build-depends:  split ^>=0.2
 
 executable aoc11
   import:         exec
