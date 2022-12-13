@@ -110,6 +110,7 @@ executable aoc13
   import:         exec
   hs-source-dirs: aoc13
   main-is:        Main.hs
+  build-depends:  megaparsec ^>=9.2.0
 
 executable aoc14
   import:         exec
