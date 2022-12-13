@@ -27,17 +27,12 @@ instance Ord Packet where
   compare left (Val right) = left `compare` List [Val right]
   compare (List left) (List right) = left `compare` right
 
-pList :: Parser Packet
-pList = List <$> (char '[' *> pPacket `sepBy` char ',' <* char ']')
-
-pPacket :: Parser Packet
-pPacket = pList <|> (Val <$> decimal)
-
-pPair :: Parser (Packet, Packet)
-pPair = (,) <$> pPacket <* newline <*> pPacket <* newline
-
 pInput :: Parser [(Packet, Packet)]
 pInput = (pPair `sepBy` newline) <* eof
+ where
+  pPair = (,) <$> pPacket <* newline <*> pPacket <* newline
+  pPacket = pList <|> (Val <$> decimal)
+  pList = List <$> (char '[' *> pPacket `sepBy` char ',' <* char ']')
 
 partOne :: [(Packet, Packet)] -> Int
 partOne = sum . map (+ 1) . findIndices (uncurry (<))
