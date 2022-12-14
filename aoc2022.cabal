@@ -14,7 +14,10 @@ build-type:    Simple
 common base
   ghc-options:        -Wall -Wno-type-defaults
   default-language:   GHC2021
-  build-depends:      base ^>=4.16.3.0
+  build-depends:
+    , base        ^>=4.16.3.0
+    , megaparsec  ^>=9.2.0
+
   default-extensions:
     BlockArguments
     OverloadedStrings
@@ -110,15 +113,12 @@ executable aoc13
   import:         exec
   hs-source-dirs: aoc13
   main-is:        Main.hs
-  build-depends:  megaparsec ^>=9.2.0
 
 executable aoc14
   import:         exec
   hs-source-dirs: aoc14
   main-is:        Main.hs
-  build-depends:
-    , containers  ^>=0.6
-    , megaparsec  ^>=9.2.0
+  build-depends:  containers ^>=0.6
 
 executable aoc15
   import:         exec

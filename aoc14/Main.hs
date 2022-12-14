@@ -1,23 +1,14 @@
 module Main (main) where
 
-import Inputs (inputFor)
+import Inputs (Parser, inputFor, parsecParse)
 
 import Control.Arrow ((***))
 import Data.List (find)
 import qualified Data.Map.Strict as M
 import Data.Maybe (isJust)
-import Data.Void (Void)
-import Text.Megaparsec (
-  MonadParsec (eof),
-  Parsec,
-  errorBundlePretty,
-  runParser,
-  sepBy,
- )
+import Text.Megaparsec (MonadParsec (eof), sepBy)
 import Text.Megaparsec.Char (char, newline, string)
 import Text.Megaparsec.Char.Lexer (decimal)
-
-type Parser = Parsec Void String
 
 type Point = (Int, Int)
 type Rock = [Point]
@@ -94,9 +85,6 @@ partTwo rocks =
 
 main :: IO ()
 main = do
-  input <- inputFor "14"
-  case runParser pInput "AoC-Day14" input of
-    Left err -> putStr $ errorBundlePretty err
-    Right rocks -> do
-      putStrLn $ "Part 1: " ++ show (partOne rocks)
-      putStrLn $ "Part 2: " ++ show (partTwo rocks)
+  rocks <- parsecParse pInput =<< inputFor "14"
+  putStrLn $ "Part 1: " ++ show (partOne rocks)
+  putStrLn $ "Part 2: " ++ show (partTwo rocks)

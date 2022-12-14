@@ -1,21 +1,11 @@
 module Main (main) where
 
-import Inputs (inputFor)
+import Inputs (Parser, inputFor, parsecParse)
 
 import Data.List (findIndices, sort)
-import Data.Void (Void)
-import Text.Megaparsec (
-  MonadParsec (eof),
-  Parsec,
-  errorBundlePretty,
-  runParser,
-  sepBy,
-  (<|>),
- )
+import Text.Megaparsec (MonadParsec (eof), sepBy, (<|>))
 import Text.Megaparsec.Char (char, newline)
 import Text.Megaparsec.Char.Lexer (decimal)
-
-type Parser = Parsec Void String
 
 data Packet = Val Int | List [Packet]
   deriving (Eq)
@@ -46,9 +36,6 @@ partTwo pairs =
 
 main :: IO ()
 main = do
-  input <- inputFor "13"
-  case runParser pInput "AoC-Day13" input of
-    Left err -> putStr $ errorBundlePretty err
-    Right pairs -> do
-      putStrLn $ "Part 1: " ++ show (partOne pairs)
-      putStrLn $ "Part 2: " ++ show (partTwo pairs)
+  pairs <- parsecParse pInput =<< inputFor "13"
+  putStrLn $ "Part 1: " ++ show (partOne pairs)
+  putStrLn $ "Part 2: " ++ show (partTwo pairs)
