@@ -2,7 +2,7 @@ module Main (main) where
 
 import Inputs (Parser, inputFor, parsecParse)
 
-import Control.Arrow ((***))
+import Control.Arrow ((&&&), (***))
 import Data.List (find)
 import qualified Data.Map.Strict as M
 import Data.Maybe (isJust)
@@ -46,8 +46,11 @@ placeTiles addFloor (sx, sy) =
               then tiles `M.union` M.fromAscList floorPoints
               else tiles
       fillAir tiles =
-        let (minX, minY) = (minimum *** minimum) $ unzip $ M.keys tiles
-            (maxX, maxY) = (maximum *** maximum) $ unzip $ M.keys tiles
+        let ((minX, minY), (maxX, maxY)) =
+              (minimum *** minimum)
+                &&& (maximum *** maximum)
+                $ unzip
+                $ M.keys tiles
             airPoints =
               [ ((x, y), Air)
               | x <- [min sx minX .. max sx maxX]
