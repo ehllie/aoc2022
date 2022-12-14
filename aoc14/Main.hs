@@ -86,5 +86,5 @@ partTwo rocks =
 main :: IO ()
 main = do
   rocks <- parsecParse pInput =<< inputFor "14"
-  putStrLn $ "Part 1: " ++ show (partOne rocks)
-  putStrLn $ "Part 2: " ++ show (partTwo rocks)
+  putStrLn $ "Part One: " ++ show (partOne rocks)
+  putStrLn $ "Part Two: " ++ show (partTwo rocks)

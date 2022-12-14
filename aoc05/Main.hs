@@ -56,5 +56,5 @@ partTwo (stacks, moves) = map head $ foldl (moveCrates id) stacks moves
 main :: IO ()
 main = do
   input <- fromJust . parse <$> linesFor "05"
-  putStrLn $ "Part 1: " ++ show (partOne input)
-  putStrLn $ "Part 1: " ++ show (partTwo input)
+  putStrLn $ "Part One: " ++ show (partOne input)
+  putStrLn $ "Part Two: " ++ show (partTwo input)

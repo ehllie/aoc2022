@@ -24,5 +24,5 @@ partTwo stream = foldM uniqueChunk (reverse seed) $ zip [14 ..] rest
 main :: IO ()
 main = do
   input <- inputFor "06"
-  putStrLn $ "Part 1: " ++ show (partOne input)
-  putStrLn $ "Part 2: " ++ show (partTwo input)
+  putStrLn $ "Part One: " ++ show (partOne input)
+  putStrLn $ "Part Two: " ++ show (partTwo input)

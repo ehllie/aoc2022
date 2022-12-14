@@ -44,5 +44,5 @@ partTwo ops =
 main :: IO ()
 main = do
   input <- logParse parseLine =<< linesFor "10"
-  putStrLn $ "Part 1: " ++ show (partOne input)
-  putStrLn $ "Part 2: \n" ++ partTwo input
+  putStrLn $ "Part One: " ++ show (partOne input)
+  putStrLn $ "Part Two: \n" ++ partTwo input

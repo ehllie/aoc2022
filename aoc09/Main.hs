@@ -38,5 +38,5 @@ partTwo = size . fst . foldl updatePositions (empty, (0, 0) :| replicate 9 (0, 0
 main :: IO ()
 main = do
   input <- concat <$> (logParse parse =<< linesFor "09")
-  putStrLn $ "Part 1: " ++ show (partOne input)
-  putStrLn $ "Part 2: " ++ show (partTwo input)
+  putStrLn $ "Part One: " ++ show (partOne input)
+  putStrLn $ "Part Two: " ++ show (partTwo input)

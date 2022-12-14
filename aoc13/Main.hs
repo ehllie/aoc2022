@@ -37,5 +37,5 @@ partTwo pairs =
 main :: IO ()
 main = do
   pairs <- parsecParse pInput =<< inputFor "13"
-  putStrLn $ "Part 1: " ++ show (partOne pairs)
-  putStrLn $ "Part 2: " ++ show (partTwo pairs)
+  putStrLn $ "Part One: " ++ show (partOne pairs)
+  putStrLn $ "Part Two: " ++ show (partTwo pairs)

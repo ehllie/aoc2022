@@ -80,5 +80,5 @@ partTwo monkeys =
 main :: IO ()
 main = do
   input <- traverse parseMonkey . splitWhen null <$> linesFor "11"
-  putStrLn $ "Part 1: " ++ show (partOne <$> input)
-  putStrLn $ "Part 2: " ++ show (partTwo <$> input)
+  putStrLn $ "Part One: " ++ show (partOne <$> input)
+  putStrLn $ "Part Two: " ++ show (partTwo <$> input)

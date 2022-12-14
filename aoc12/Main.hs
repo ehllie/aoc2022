@@ -99,23 +99,10 @@ partTwo heights end = M.foldl min maxBound $ M.restrictKeys distMap lowest
   inverted = map (map (`subtract` fromEnum 'z')) heights
   lowest = foldl (\acc (h, r, c) -> if h == 0 then S.insert (r, c) acc else acc) S.empty . concat $ enumerate2D heights
 
--- mapToTable :: Show a => (Int, Int) -> M.Map Point a -> [[String]]
--- mapToTable dims map' = [[maybe "" show $ M.lookup (row, col) map' | col <- [0 .. snd dims]] | row <- [0 .. fst dims]]
-
--- visualize :: [[String]] -> String
--- visualize tab = unlines $ map (unwords . map pad) tab
---  where
---   maxLen = maximum $ concatMap (map length) tab
---   pad = take maxLen . (++ repeat ' ')
-
 main :: IO ()
 main = do
   input <- linesFor "12"
   let heights = map parse input
       route = findSE input
-  -- graph = buildGraph heights
-  -- dims = (length heights, maximum $ map length heights)
-  -- putStrLn . visualize . map (map show) $ heights
-  -- putStrLn . visualize . mapToTable dims . partTwo heights . snd . fromJust $ route
-  putStrLn $ "Part 1: " ++ show (uncurry (partOne heights) <$> route)
-  putStrLn $ "Part 2: " ++ show (partTwo heights . snd <$> route)
+  putStrLn $ "Part One: " ++ show (uncurry (partOne heights) <$> route)
+  putStrLn $ "Part Two: " ++ show (partTwo heights . snd <$> route)
