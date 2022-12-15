@@ -124,6 +124,9 @@ executable aoc15
   import:         exec
   hs-source-dirs: aoc15
   main-is:        Main.hs
+  build-depends:
+    , containers  ^>=0.6
+    , range       ^>=0.3
 
 executable aoc16
   import:         exec
