@@ -5,7 +5,7 @@ import Inputs (Parser, inputFor, parsecParse)
 import Control.Monad (void)
 import Data.Bifunctor (Bifunctor (first))
 import qualified Data.Map.Strict as M
-import Data.Range (Range (SingletonRange), difference, fromRanges, joinRanges, (+=+))
+import Data.Range (Range (SingletonRange), difference, fromRanges, (+=+))
 import Text.Megaparsec (MonadParsec (eof), sepEndBy)
 import Text.Megaparsec.Char (hspace, newline, string)
 import qualified Text.Megaparsec.Char.Lexer as L
@@ -41,7 +41,7 @@ sensorRange r (x, y) c =
    in ([(x - width) +=+ (x + width) | width >= 0])
 
 lineCoverage :: Integer -> Coverage -> [Range Integer]
-lineCoverage y = joinRanges . M.foldMapWithKey (sensorRange y)
+lineCoverage y = M.foldMapWithKey (sensorRange y)
 
 partOne :: [(Point, Point)] -> Int
 partOne reports =
