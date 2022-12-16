@@ -132,6 +132,7 @@ executable aoc16
   import:         exec
   hs-source-dirs: aoc16
   main-is:        Main.hs
+  build-depends:  containers ^>=0.6
 
 executable aoc17
   import:         exec
